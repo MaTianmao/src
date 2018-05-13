@@ -1,0 +1,7 @@
+*.vcproj
+*.sln
+*.cbproj
+*/sort
+*/googletest/
+*/googlemock/
+

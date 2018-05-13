@@ -1,0 +1,38 @@
+cmake_minimum_required(VERSION 2.8)
+project(Terasure)
+
+set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -std=c99 -O3 -g -mavx2")
+
+
+include_directories(include/)
+add_library(msr include/msr.h src/msr.c src/arch.h src/gf.h include/hh.h src/hh.c include/reed_solomon.h src/reed_solomon.c include/mbr.h src/mbr.c)
+
+set(TEST_FILES test/test.c)
+set(HH_TEST_FILES test/test_hh.c)
+set(RS_TEST_FILES_C test/rs_test_cauchy.c)
+set(RS_TEST_FILES_V test/rs_test_vandermonde.c)
+set(BENCHMARK_FILES test/benchmark.c)
+set(HH_BENCHMARK_FILES test/benchmark_hh.c)
+set(RS_BENCHMARK_FILES_C test/rs_benchmark_cauchy.c)
+set(MBR_TEST_FILES test/mbr_test.c)
+set(MBR_BENCHMARK_FILES test/mbr_benchmark.c)
+
+add_executable(test ${TEST_FILES})
+add_executable(benchmark ${BENCHMARK_FILES})
+add_executable(rs_test_cauchy ${RS_TEST_FILES_C})
+add_executable(rs_test_vandermonde ${RS_TEST_FILES_V})
+add_executable(test_hh ${HH_TEST_FILES})
+add_executable(benchmark_hh ${HH_BENCHMARK_FILES})
+add_executable(rs_benchmark_cauchy ${RS_BENCHMARK_FILES_C})
+add_executable(mbr_test ${MBR_TEST_FILES})
+add_executable(mbr_benchmark ${MBR_BENCHMARK_FILES})
+
+target_link_libraries(test msr)
+target_link_libraries(benchmark msr)
+target_link_libraries(test_hh msr)
+target_link_libraries(benchmark_hh msr)
+target_link_libraries(rs_test_cauchy msr)
+target_link_libraries(rs_test_vandermonde msr)
+target_link_libraries(rs_benchmark_cauchy msr)
+target_link_libraries(mbr_test msr)
+target_link_libraries(mbr_benchmark msr)
